@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>UI Test 1</title>
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+#unity-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    outline: none;
+}
+</style>
+
+<script src="webOSTVjs-1.2.13/webOSTV.js"></script>
+</head>
+
+<body>
+
+<canvas id="unity-canvas"></canvas>
+
+<script>
+
+const buildUrl = "Build";
+
+const config = {
+    dataUrl: buildUrl + "/UI Test 1.data",
+    frameworkUrl: buildUrl + "/UI Test 1.framework.js",
+    codeUrl: buildUrl + "/UI Test 1.wasm",
+
+    streamingAssetsUrl: "StreamingAssets",
+
+    companyName: "Ashitosh",
+    productName: "UI Test 1",
+    productVersion: "1.0.0",
+
+    matchWebGLToCanvasSize: true,
+    devicePixelRatio: 1
+};
+
+let unityInstance;
+
+const loader = document.createElement("script");
+loader.src = buildUrl + "/UI Test 1.loader.js";
+
+loader.onerror = () => {
+    console.error("Failed to load Unity loader.");
+};
+
+loader.onload = () => {
+
+    console.log("Loader Loaded");
+
+    console.log(typeof createUnityInstance);
+
+    createUnityInstance(
+        document.querySelector("#unity-canvas"),
+        config
+    )
+    .then(instance => {
+
+        console.log("Unity Started");
+
+        unityInstance = instance;
+
+    })
+    .catch(err => {
+
+        console.error("UNITY ERROR");
+
+        console.error(err);
+
+    });
+};
+document.body.appendChild(loader);
+
+</script>
+
+</body>
+</html>
